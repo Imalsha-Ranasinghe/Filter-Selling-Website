@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion';
 import { FiShoppingCart, FiSearch, FiChevronDown, FiStar } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,9 +16,9 @@ const Header = () => {
               animate={{ opacity: 1 }}
               className="flex items-center space-x-2"
             >
-              <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-teal-500 bg-clip-text text-transparent">
+              <Link to={"/"} className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-teal-500 bg-clip-text text-transparent">
                 AquaPure
-              </span>
+              </Link>
             </motion.div>
   
             {/* Navigation */}
@@ -49,9 +50,9 @@ const Header = () => {
                   <span className="absolute -top-1 -right-1 bg-teal-500 text-white text-xs px-2 rounded-full">3</span>
                 </button>
                 
-                <button className="bg-gradient-to-r from-indigo-600 to-teal-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-opacity">
+                <Link to={"/sign-up"} className="bg-gradient-to-r from-indigo-600 to-teal-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-opacity">
                   Get Started
-                </button>
+                </Link>
               </div>
             </div>
   
