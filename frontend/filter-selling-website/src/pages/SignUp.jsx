@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import Header from './Header';
 
 export default function SignUp() {
   const { signup } = useAuth();
@@ -25,6 +26,9 @@ export default function SignUp() {
   }
 
   return (
+    <div>
+      <Header/>
+    
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center p-4">
       <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
       <div className="w-64 mx-auto">
@@ -34,12 +38,9 @@ export default function SignUp() {
 
 
         {/* Form Section */}
-        <div className="md:w-1/2 p-8 lg:p-12">
+        <div className="md:w-1/2 p-20 lg:p-20">
           <div className="max-w-md mx-auto">
-            <div className="flex justify-center mb-8">
-              
-            </div>
-
+         
             <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">
               Create Your Account
             </h1>
@@ -115,6 +116,7 @@ export default function SignUp() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

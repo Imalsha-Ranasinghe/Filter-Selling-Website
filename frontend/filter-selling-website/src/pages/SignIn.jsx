@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import Header from './Header';
 
 export default function SignIn() {
   const { login, googleSignIn } = useAuth();
@@ -37,7 +38,10 @@ export default function SignIn() {
   }
 
   return (
+<div>
+  <Header />
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center p-4">
+      
       <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
         {/* Visual Section */}
         <div className="w-64 mx-auto">
@@ -48,17 +52,14 @@ export default function SignIn() {
        
 
         {/* Form Section */}
-        <div className="md:w-1/2 p-8 lg:p-12">
+        <div className="md:w-1/2 p-20 lg:p-20">
           <div className="max-w-md mx-auto">
-            <div className="flex justify-center mb-8">
-              
-            </div>
-
+         
             <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">
-              Sign In to Your Account
+              Sign-In to Your Account
             </h1>
             <p className="text-gray-600 text-center mb-8">
-              Manage your water filtration system
+              Manage Your Water Filteration System
             </p>
 
             {error && (
@@ -136,6 +137,7 @@ export default function SignIn() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
