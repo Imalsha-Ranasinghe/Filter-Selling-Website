@@ -50,7 +50,7 @@ const Header = () => {
                   <span className="absolute -top-1 -right-1 bg-teal-500 text-white text-xs px-2 rounded-full">3</span>
                 </button>
                 
-                <Link to={"/sign-up"} className="bg-gradient-to-r from-indigo-600 to-teal-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-opacity">
+                <Link to={"/signup"} className="bg-gradient-to-r from-indigo-600 to-teal-500 text-white px-6 py-2 rounded-lg hover:opacity-90 transition-opacity">
                   Get Started
                 </Link>
               </div>
