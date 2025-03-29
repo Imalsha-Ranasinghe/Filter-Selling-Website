@@ -5,6 +5,8 @@ import { FaTrash, FaShoppingCart, FaCreditCard } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import CartOrders from './CartOrders';
+import { FiShoppingCart } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 function Cart() {
   const [cart, setCart] = useState([]);
@@ -50,7 +52,90 @@ function Cart() {
   }
 
   return (
+    <div>
+          <nav className="bg-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16 items-center">
+            <div className="flex items-center">
+              <Link
+                to={"/home"}
+                className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-teal-500 bg-clip-text text-transparent"
+              >
+                AquaPure
+              </Link>
+              <div className="hidden md:flex space-x-8 ml-10">
+                <Link
+                  to="/products"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  Products
+                </Link>
+                <Link
+                  to="/contact"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  Contact
+                </Link>
+                <Link
+                  to="/about"
+                  className="text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  About Us
+                </Link>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+              {currentUser ? (
+                <>
+                  <div className="hidden md:flex items-center space-x-8">
+                    <Link to={"/cart"}>
+                      <FiShoppingCart className="text-xl text-gray-700" />
+                    </Link>
+
+                    <button
+                      onClick={logout}
+                      className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center font-semibold"
+                    >
+                      Logout
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 ml-2"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="space-x-4">
+                  <Link
+                    to="/login"
+                    className="text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Create Account
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </nav>
+   
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -147,6 +232,7 @@ function Cart() {
         </motion.div>
         {showCartOrder && <div className="mt-8"><CartOrders /></div>}
       </div>
+    </div>
     </div>
   );
 }
