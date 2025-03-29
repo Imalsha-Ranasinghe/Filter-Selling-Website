@@ -18,24 +18,14 @@ export default function SignIn() {
       setError('');
       setLoading(true);
       await login(email.value, password.value);
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       setError(err.message);
     }
     setLoading(false);
   }
 
-  async function handleGoogleSignIn() {
-    try {
-      setError('');
-      setLoading(true);
-      await googleSignIn();
-      navigate('/');
-    } catch (err) {
-      setError(err.message);
-    }
-    setLoading(false);
-  }
+  
 
   return (
 <div>

@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Welcome from './pages/Welcome';
+import Products from './pages/Products';
+import ProductView from './pages/ProductView';
 
 function App() {
   const { currentUser } = useAuth();
@@ -23,6 +25,14 @@ function App() {
       <Route
         path="/signup"
         element={!currentUser ? <SignUp /> : <Navigate to="/home" />}
+      />
+      <Route
+        path="/products"
+        element={<Products />}
+      />
+      <Route
+        path="/product/:id"
+        element={<ProductView />}
       />
     </Routes>
   );

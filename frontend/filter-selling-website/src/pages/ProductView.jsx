@@ -1,0 +1,171 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { fetchProductById} from '../services/productService'
+import { FaArrowLeft, FaShoppingCart, FaWallet } from 'react-icons/fa'
+import Header from './Header'
+
+const ProductView = () => {
+  const { id } = useParams()
+  const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [quantity, setQuantity] = useState(1)
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const data = await fetchProductById(id);
+        setProduct(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getProduct();
+  }, [id]);
+
+
+
+  const handleAddToCart = () => {
+    // Add your cart logic here
+    console.log(`Added ${quantity} ${product.name} to cart`)
+  }
+
+  const handlePlaceOrder = () => {
+    // Add your order placement logic here
+    console.log(`Placed order for ${quantity} ${product.name}`)
+  }
+
+  if (loading) {
+    return (
+      <div className="text-center p-8">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading product...</p>
+      </div>
+    )
+  }
+
+  if (error || !product) {
+    return (
+      <div className="text-center p-8 text-red-500">
+        <p>{error || 'Product not found'}</p>
+        <a href="/products" className="mt-4 inline-block text-blue-500 hover:underline">
+          <FaArrowLeft className="inline mr-2" />
+          Back to Products
+        </a>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+        <Header />
+   
+    <div className="container mx-auto px-4 py-8">
+        
+      <div className="max-w-6xl mx-auto">
+        <a href="/products" className="text-blue-500 hover:underline flex items-center mb-6">
+          <FaArrowLeft className="mr-2" />
+          Back to Products
+        </a>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Product Image */}
+          <div className="bg-white p-6 rounded-xl shadow-lg">
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              className="w-full h-96 object-contain rounded-lg"
+            />
+          </div>
+
+          {/* Product Details */}
+          <div className="bg-white p-6 rounded-xl shadow-lg">
+            <h1 className="text-3xl font-bold text-gray-800 mb-4">{product.name}</h1>
+            <div className="flex items-center mb-4">
+              <span className="text-2xl font-bold text-blue-600">${product.price}</span>
+              {product.stock > 0 ? (
+                <span className="ml-4 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                  In Stock ({product.stock})
+                </span>
+              ) : (
+                <span className="ml-4 px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+                  Out of Stock
+                </span>
+              )}
+            </div>
+
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-2">Description</h3>
+              <p className="text-gray-600 leading-relaxed">{product.description}</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div>
+                <h4 className="text-sm font-semibold text-gray-500">Brand</h4>
+                <p className="text-gray-800">{product.brand}</p>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-gray-500">Category</h4>
+                <p className="text-gray-800 capitalize">{product.category}</p>
+              </div>
+            </div>
+
+            {/* Quantity Selector */}
+            <div className="mb-8">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Quantity
+              </label>
+              <div className="flex items-center">
+                <button 
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="px-4 py-2 bg-gray-100 border rounded-l-md hover:bg-gray-200"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  value={quantity}
+                  readOnly
+                  className="w-16 text-center border-t border-b"
+                />
+                <button 
+                  onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
+                  className="px-4 py-2 bg-gray-100 border rounded-r-md hover:bg-gray-200"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col gap-4">
+              <button
+                onClick={handleAddToCart}
+                disabled={product.stock === 0}
+                className="flex items-center justify-center gap-2 bg-blue-800 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              >
+                <FaShoppingCart />
+                Add to Cart
+              </button>
+              
+              <button
+                onClick={handlePlaceOrder}
+                disabled={product.stock === 0}
+                className="flex items-center justify-center gap-2 font-semibold bg-green-700 text-white py-3 rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              >
+                <FaWallet />
+                Buy Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  )
+}
+
+export default ProductView
