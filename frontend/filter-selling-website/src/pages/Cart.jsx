@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { FaTrash, FaShoppingCart, FaCreditCard } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
@@ -15,7 +15,7 @@ function Cart() {
         try {
           const userRef = doc(db, 'users', user.uid);
           const userDoc = await getDoc(userRef);
-          
+
           if (userDoc.exists()) {
             setCart(userDoc.data().cart || []);
           }
@@ -34,12 +34,36 @@ function Cart() {
     return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
   };
 
-  const removeItem = (itemId) => {
-    // Implement remove item logic
+  const removeItem = async (itemId) => {
+    // Remove item from cart
+    const updatedCart = cart.filter((item) => item.id !== itemId);
+    setCart(updatedCart);
+
+    // Update cart in Firestore
+    if (user) {
+      const userRef = doc(db, 'users', user.uid);
+      await updateDoc(userRef, { cart: updatedCart });
+    }
   };
 
-  const updateQuantity = (itemId, newQuantity) => {
-    // Implement quantity update logic
+  const updateQuantity = async (itemId, newQuantity) => {
+    // Prevent quantity from going below 1
+    if (newQuantity < 1) return;
+
+    const updatedCart = cart.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+
+    setCart(updatedCart);
+
+    // Update cart in Firestore
+    if (user) {
+      const userRef = doc(db, 'users', user.uid);
+      await updateDoc(userRef, { cart: updatedCart });
+    }
   };
 
   if (loading) {
@@ -94,7 +118,7 @@ function Cart() {
                       <div className="ml-4 flex-1">
                         <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
                         <p className="text-gray-600 text-sm">{item.brand}</p>
-                        
+
                         <div className="flex items-center justify-between mt-2">
                           <div className="flex items-center">
                             <button 
@@ -111,7 +135,7 @@ function Cart() {
                               +
                             </button>
                           </div>
-                          
+
                           <div className="text-right">
                             <p className="text-lg font-bold text-blue-600">
                               ${(item.price * item.quantity).toFixed(2)}
@@ -134,7 +158,7 @@ function Cart() {
               <div className="lg:col-span-4 mt-8 lg:mt-0">
                 <div className="bg-gray-50 rounded-xl p-6 shadow-sm">
                   <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-                  
+
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span>Subtotal ({cart.length} items)</span>
@@ -144,30 +168,22 @@ function Cart() {
                       <span>Shipping</span>
                       <span className="text-green-600">Free</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Taxes</span>
-                      <span>$5.99</span>
-                    </div>
-                    
+                  
+
                     <hr className="my-4" />
-                    
+
                     <div className="flex justify-between font-bold text-lg">
                       <span>Total</span>
-                      <span>${(parseFloat(calculateTotal()) + 5.99).toFixed(2)}</span>
+                      <span>${(parseFloat(calculateTotal()) ).toFixed(2)}</span>
                     </div>
 
-                    <button className="w-full bg-green-600 text-white py-3 rounded-lg mt-6
+                    <button className="w-full bg-teal-600 font-semibold text-white py-3 rounded-lg mt-6
                       hover:bg-green-700 transition-colors flex items-center justify-center">
                       <FaCreditCard className="mr-2" />
                       Proceed to Checkout
                     </button>
 
-                    <button 
-                      className="w-full mt-4 text-blue-600 hover:text-blue-700 underline"
-                      onClick={() => window.history.back()}
-                    >
-                      Continue Shopping
-                    </button>
+                    
                   </div>
                 </div>
               </div>

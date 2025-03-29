@@ -159,9 +159,11 @@ const ProductView = () => {
                     {currentUser ? (
                       <>
                         <div className="hidden md:flex items-center space-x-8">
+                            <Link to={"/cart"}>
                           <FiShoppingCart className="text-xl text-gray-700" />
       
                           
+                            </Link>
                         </div>
                       </>
                     ) : (

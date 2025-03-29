@@ -48,12 +48,12 @@ const Header = () => {
               >
                 Products
               </Link>
-              <a
-                href="#resources"
+              <Link
+                to={"/contact"}
                 className="text-gray-700 hover:text-indigo-600 transition-colors"
               >
                 Contact
-              </a>
+              </Link>
             </div>
 
             <div className="flex items-center space-x-6 ml-8">

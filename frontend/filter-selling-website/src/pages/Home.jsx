@@ -27,10 +27,10 @@ export default function Home() {
                   Products
                 </Link>
                 <Link
-                  to="/support"
+                  to="/contact"
                   className="text-gray-700 hover:text-blue-600 font-medium"
                 >
-                  Support
+                  Contact
                 </Link>
                 <Link
                   to="/about"

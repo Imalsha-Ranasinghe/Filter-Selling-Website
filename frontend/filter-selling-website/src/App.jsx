@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import PlaceOrder from "./pages/PlaceOrder";
 import PrivateRoute from "../PrivateRoute"; // Import the PrivateRoute component
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
   const { currentUser } = useAuth();
@@ -18,6 +19,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Welcome />} />
       <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+     
       {/* Private Routes */}
       <Route path="/home" element={<PrivateRoute element={<Home />} />} />
       <Route path="/cart" element={<PrivateRoute element={<Cart />} />} />
