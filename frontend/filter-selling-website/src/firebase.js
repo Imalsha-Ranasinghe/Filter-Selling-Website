@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage"; 
 
 // Firebase configuration
 const firebaseConfig = {
@@ -19,6 +20,7 @@ const app = initializeApp(firebaseConfig);
 // Export Firebase services
 export const auth = getAuth(app);
 const user = auth.currentUser;
-const userId = user ? user.uid : null; // Get the current user's ID
+const userId = user ? user.uid : null; 
 console.log("Current User ID:", userId); // Log the user ID for debugging
 export const db = getFirestore(app);
+export const storage = getStorage(app);

@@ -62,6 +62,8 @@ const Products = () => {
   }
 
   return (
+<div>
+
 
     <div className="container mx-auto p-4 lg:p-6">
   
@@ -136,6 +138,7 @@ const Products = () => {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -6,6 +6,8 @@ import Header from './Header'
 import { db } from '../firebase' // Import Firebase Firestore
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore'
 import { useAuth } from '../context/AuthContext' // Assuming you have an auth context
+import CustomNotification from './Notification'
+import { FiShoppingCart } from 'react-icons/fi'
 
 const ProductView = () => {
   const { id } = useParams()
@@ -14,6 +16,7 @@ const ProductView = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [quantity, setQuantity] = useState(1)
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     const getProduct = async () => {
@@ -64,8 +67,15 @@ const ProductView = () => {
 
       await setDoc(userCartRef, { cart: cartItems }, { merge: true }) // Merge cart updates
 
-      alert(`Added ${quantity} ${product.name} to cart!`)
+      setNotification({
+        type: 'success',
+        message: 'Product added to the cart successfully',
+      });
     } catch (error) {
+        setNotification({
+            type: 'error',
+            message: 'Something went wrong. Please try again.',
+          });
       console.error('Error adding to cart:', error)
     }
   }
@@ -81,6 +91,7 @@ const ProductView = () => {
   }
 
   if (error || !product) {
+   
     return (
       <div className="text-center p-8 text-red-500">
         <p>{error || 'Product not found'}</p>
@@ -92,10 +103,95 @@ const ProductView = () => {
     )
   }
 
+  const triggerSuccessNotification = () => {
+    setNotification({
+      type: 'success',
+      message: 'Action was successful!',
+    });
+  };
+
+  const triggerErrorNotification = () => {
+    setNotification({
+      type: 'error',
+      message: 'Something went wrong. Please try again.',
+    });
+  };
+
+  const handleCloseNotification = () => {
+    setNotification(null); // Hide notification after it's closed
+  };
+
   return (
     <div>
-      <Header />
-
+      <nav className="bg-white shadow-lg">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16 items-center">
+                  <div className="flex items-center">
+                    <Link
+                      to={"/home"}
+                      className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-teal-500 bg-clip-text text-transparent"
+                    >
+                      AquaPure
+                    </Link>
+                    <div className="hidden md:flex space-x-8 ml-10">
+                      <Link
+                        to="/products"
+                        className="text-gray-700 hover:text-blue-600 font-medium"
+                      >
+                        Products
+                      </Link>
+                      <Link
+                        to="/support"
+                        className="text-gray-700 hover:text-blue-600 font-medium"
+                      >
+                        Support
+                      </Link>
+                      <Link
+                        to="/about"
+                        className="text-gray-700 hover:text-blue-600 font-medium"
+                      >
+                        About Us
+                      </Link>
+                    </div>
+                  </div>
+      
+                  <div className="flex items-center space-x-4">
+                    {currentUser ? (
+                      <>
+                        <div className="hidden md:flex items-center space-x-8">
+                          <FiShoppingCart className="text-xl text-gray-700" />
+      
+                          
+                        </div>
+                      </>
+                    ) : (
+                      <div className="space-x-4">
+                        <Link
+                          to="/login"
+                          className="text-blue-600 hover:text-blue-700 font-medium"
+                        >
+                          Sign In
+                        </Link>
+                        <Link
+                          to="/signup"
+                          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                          Create Account
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </nav>
+    {/* Conditionally render Notification component */}
+    {notification && (
+        <CustomNotification
+          type={notification.type}
+          message={notification.message}
+          onClose={handleCloseNotification}
+        />
+      )}
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <a href="/products" className="text-blue-500 hover:underline flex items-center mb-6">
@@ -172,6 +268,7 @@ const ProductView = () => {
               <div className="flex flex-col gap-4">
                 <button
                   onClick={handleAddToCart}
+                 
                   disabled={product.stock === 0}
                   className="flex items-center justify-center gap-2 bg-blue-800 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
                 >
