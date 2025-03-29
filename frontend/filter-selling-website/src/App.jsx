@@ -6,6 +6,9 @@ import SignIn from './pages/SignIn';
 import Welcome from './pages/Welcome';
 import Products from './pages/Products';
 import ProductView from './pages/ProductView';
+import Cart from './pages/Cart';
+import PlaceOrder from './pages/PlaceOrder';
+import Order from './pages/Order';
 
 function App() {
   const { currentUser } = useAuth();
@@ -33,6 +36,18 @@ function App() {
       <Route
         path="/product/:id"
         element={<ProductView />}
+      />
+      <Route
+        path="/cart"
+        element={<Cart />}
+      />
+      <Route
+        path="/place-order/:id"
+        element={<PlaceOrder/>}
+      />
+      <Route
+        path="/order/:id"
+        element={<Order/>}
       />
     </Routes>
   );

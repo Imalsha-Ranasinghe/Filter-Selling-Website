@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchProducts } from "../services/productService";
 import { FaSpinner, FaFilter, FaSortAmountDown, FaSortAmountUpAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -63,7 +64,7 @@ const Products = () => {
   return (
 
     <div className="container mx-auto p-4 lg:p-6">
-     
+  
       <h1 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800 text-center">
         Explore Our Products
       </h1>

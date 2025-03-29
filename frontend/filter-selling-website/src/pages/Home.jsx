@@ -1,6 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import Products from "./Products";
+import { FiShoppingCart } from "react-icons/fi";
 
 export default function Home() {
   const { currentUser, logout } = useAuth();
@@ -13,7 +14,7 @@ export default function Home() {
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center">
               <Link
-                to={"/"}
+                to={"/home"}
                 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-teal-500 bg-clip-text text-transparent"
               >
                 AquaPure
@@ -43,13 +44,12 @@ export default function Home() {
             <div className="flex items-center space-x-4">
               {currentUser ? (
                 <>
-                  <div className="hidden md:flex items-center space-x-2">
-                    <span className="text-gray-600">
-                      Welcome, {currentUser.email}
-                    </span>
+                  <div className="hidden md:flex items-center space-x-8">
+                    <FiShoppingCart className="text-xl text-gray-700" />
+
                     <button
                       onClick={logout}
-                      className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+                      className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center font-semibold"
                     >
                       Logout
                       <svg
