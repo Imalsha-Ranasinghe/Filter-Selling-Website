@@ -210,7 +210,7 @@ const PlaceOrder = () => {
               type="submit"
               disabled={uploading}
               className={`w-full py-3 rounded-lg text-white font-semibold ${
-                uploading ? "bg-gray-400" : "bg-green-700 hover:bg-green-600 transition"
+                uploading ? "bg-gray-400" : "bg-blue-800 hover:bg-green-600 transition"
               }`}
             >
               {uploading ? "Placing Order..." : "Confirm Order"}

@@ -73,7 +73,7 @@ const About = () => {
             </p>
             <Link
               to="/products"
-              className="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
+              className="inline-block bg-teal-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors"
             >
               Explore Products
             </Link>
@@ -104,7 +104,7 @@ const About = () => {
               viewport={{ once: true }}
               className="text-center p-6 bg-gray-50 rounded-xl"
             >
-              <div className="text-4xl text-indigo-600 mb-4 mx-auto">
+              <div className="text-4xl text-blue-600 mb-4 mx-auto">
                 {stat.icon}
               </div>
               <div className="text-3xl font-bold text-gray-800 mb-2">

@@ -11,6 +11,7 @@ import PlaceOrder from "./pages/PlaceOrder";
 import PrivateRoute from "../PrivateRoute"; // Import the PrivateRoute component
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import CartOrders from "./pages/CartOrders";
 
 function App() {
   const { currentUser } = useAuth();
@@ -24,6 +25,8 @@ function App() {
       {/* Private Routes */}
       <Route path="/home" element={<PrivateRoute element={<Home />} />} />
       <Route path="/cart" element={<PrivateRoute element={<Cart />} />} />
+      <Route path="/cart-order" element={<PrivateRoute element={<CartOrders />} />} />
+      
       <Route
         path="/place-order/:id"
         element={<PrivateRoute element={<PlaceOrder />} />}

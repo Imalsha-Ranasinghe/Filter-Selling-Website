@@ -78,7 +78,7 @@ const Products = () => {
           <select
             value={category}
             onChange={(e) => handleCategoryChange(e.target.value)}
-            className="p-2 border rounded-lg bg-white w-full md:w-48 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all"
+            className="p-2 border rounded-lg bg-white font-semibold w-full md:w-48 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all"
           >
             <option value="All">All Categories</option>
             <option value="Home">Home</option>
@@ -87,7 +87,7 @@ const Products = () => {
           </select>
         </div>
 
-        <div className="flex items-center gap-2 w-full md:w-auto">
+        <div className="flex items-center font-semibold gap-2 w-full md:w-auto">
           <FaSortAmountDown className="text-gray-500" />
           <select
             value={sortOrder}

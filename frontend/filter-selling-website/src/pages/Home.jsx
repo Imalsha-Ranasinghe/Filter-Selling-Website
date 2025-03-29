@@ -45,7 +45,9 @@ export default function Home() {
               {currentUser ? (
                 <>
                   <div className="hidden md:flex items-center space-x-8">
-                    <FiShoppingCart className="text-xl text-gray-700" />
+                    <Link to={"/cart"}>
+                      <FiShoppingCart className="text-xl text-gray-700" />
+                    </Link>
 
                     <button
                       onClick={logout}
@@ -175,11 +177,6 @@ export default function Home() {
                 difference in water taste!"
               </p>
               <div className="flex items-center">
-                <img
-                  src="/customer-1.jpg"
-                  alt="Customer"
-                  className="w-12 h-12 rounded-full mr-4"
-                />
                 <div>
                   <p className="font-semibold">Sarah Johnson</p>
                   <p className="text-gray-600 text-sm">Homeowner</p>
@@ -192,11 +189,6 @@ export default function Home() {
                 recommend!"
               </p>
               <div className="flex items-center">
-                <img
-                  src="/customer-2.jpg"
-                  alt="Customer"
-                  className="w-12 h-12 rounded-full mr-4"
-                />
                 <div>
                   <p className="font-semibold">Michael Chen</p>
                   <p className="text-gray-600 text-sm">Restaurant Owner</p>
@@ -212,11 +204,6 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <img
-                src="/logo-white.png"
-                alt="AquaPure Filters"
-                className="h-12 mb-4"
-              />
               <p className="text-gray-400">
                 Clean water solutions for homes and businesses
               </p>

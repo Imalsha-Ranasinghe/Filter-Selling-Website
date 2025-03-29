@@ -2,6 +2,8 @@ import React from 'react';
 import Header from './Header';
 import { motion } from 'framer-motion';
 import { FiShoppingCart, FiSearch, FiChevronDown, FiStar } from 'react-icons/fi';
+import Products from './Products';
+import { Link } from 'react-router-dom';
 
 const Welcome = () => {
   return (
@@ -27,12 +29,10 @@ const Welcome = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-indigo-600 text-white px-8 py-4 rounded-xl hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-100">
+              <Link to={"/products"} className="bg-indigo-600 text-white px-8 py-4 rounded-xl hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-100">
                 Browse Products
-              </button>
-              <button className="border-2 border-indigo-600 text-indigo-600 px-8 py-4 rounded-xl hover:bg-indigo-50 transition-colors">
-                Watch Demo
-              </button>
+              </Link>
+              
             </div>
 
             <div className="flex items-center gap-6 pt-8">
@@ -50,7 +50,7 @@ const Welcome = () => {
           >
             <div className="relative bg-indigo-50 rounded-2xl p-8 shadow-xl">
               <img
-                src="https://images.unsplash.com/photo-1618835962148-cf177563c6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1365&q=80"
+                src="https://myhomefarm.co.uk/wp-content/uploads/2021/06/zerowater-review3.jpg"
                 alt="Water Filter System"
                 className="rounded-xl shadow-lg"
               />
@@ -70,17 +70,7 @@ const Welcome = () => {
         </div>
       </section>
 
-      {/* Trusted By Section */}
-      <div className="bg-indigo-50 py-12">
-        <div className="container mx-auto px-6">
-          <div className="text-center text-gray-600 mb-8">Trusted by leading companies</div>
-          <div className="flex flex-wrap justify-center gap-12 opacity-60">
-            {['Company1', 'Company2', 'Company3', 'Company4'].map((company, i) => (
-              <div key={i} className="text-2xl font-bold text-indigo-600">{company}</div>
-            ))}
-          </div>
-        </div>
-      </div>
+    
 
       {/* Features Section */}
       <section className="py-20 container mx-auto px-6">
@@ -120,51 +110,11 @@ const Welcome = () => {
 
       {/* Product Showcase */}
       <section className="py-20 bg-gradient-to-br from-indigo-50 to-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16">Best Selling Products</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <motion.div
-                key={item}
-                whileHover={{ scale: 1.02 }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden"
-              >
-                <div className="h-64 bg-gray-100 relative overflow-hidden">
-                  <img
-                    src={`https://source.unsplash.com/random/600x400?water-filter,${item}`}
-                    alt="Product"
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                  <div className="absolute top-4 right-4 bg-amber-400 text-white px-3 py-1 rounded-full text-sm">
-                    -20%
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold">Advanced Filter System</h3>
-                    <div className="flex items-center gap-1 text-amber-400">
-                      <FiStar /> 4.9
-                    </div>
-                  </div>
-                  <p className="text-gray-600 mb-4">Triple-stage purification with smart sensors</p>
-                  <div className="flex justify-between items-center">
-                    <div className="space-y-1">
-                      <div className="text-2xl font-bold text-indigo-600">$299</div>
-                      <div className="text-sm text-gray-400 line-through">$349</div>
-                    </div>
-                    <button className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 flex items-center gap-2">
-                      <FiShoppingCart /> Add
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+       <Products/>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-indigo-600 text-white">
+      <section className="py-10 bg-teal-600 text-white">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8 text-center">
             {[
